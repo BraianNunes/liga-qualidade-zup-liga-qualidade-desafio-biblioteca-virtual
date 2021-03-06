@@ -1,24 +1,19 @@
 package br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique;
 
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosLivro;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoUsuario;
 
 public class Cenario5 {
 

@@ -1,24 +1,19 @@
 package br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique;
 
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosLivro;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoUsuario;
 
 public class Cenario3 {
 
@@ -120,18 +115,18 @@ public class Cenario3 {
 				.noneMatch(r -> r.getMomentoDevolucao().isPresent()));
 		Assertions.assertEquals(4, resultados.size());
 
-		List<Integer> idsExemplaresRetornados = resultados.stream()
-				.map(r -> r.idExemplar).collect(Collectors.toList());
-		List<Integer> idsExemplaresEsperados = exemplares.stream()
+		Set<Integer> idsExemplaresRetornados = resultados.stream()
+				.map(r -> r.idExemplar).collect(Collectors.toSet());
+		Set<Integer> idsExemplaresEsperados = exemplares.stream()
 				.filter(e -> e.tipo.equals(TipoExemplar.LIVRE))
-				.map(e -> e.idExemplar).collect(Collectors.toList());
+				.map(e -> e.idExemplar).collect(Collectors.toSet());
 		Assertions.assertEquals(idsExemplaresEsperados,
 				idsExemplaresRetornados);
 
-		List<Integer> idsUsuariosRetornados = resultados.stream()
-				.map(r -> r.idUsuario).collect(Collectors.toList());
-		List<Integer> idsUsuariosEsperados = usuarios.stream()
-				.map(u -> u.idUsuario).collect(Collectors.toList());
+		Set<Integer> idsUsuariosRetornados = resultados.stream()
+				.map(r -> r.idUsuario).collect(Collectors.toSet());
+		Set<Integer> idsUsuariosEsperados = usuarios.stream()
+				.map(u -> u.idUsuario).collect(Collectors.toSet());
 		Assertions.assertEquals(idsUsuariosEsperados, idsUsuariosRetornados);
 
 		List<LocalDate> datasPrevistasDevolucaoRetornadas = resultados.stream()

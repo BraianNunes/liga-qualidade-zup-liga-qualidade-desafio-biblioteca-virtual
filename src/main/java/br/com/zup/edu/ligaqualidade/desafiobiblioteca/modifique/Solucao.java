@@ -1,14 +1,13 @@
 package br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique;
 
-import java.time.LocalDate;
-import java.util.Set;
-
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosLivro;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.*;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Solucao {
 
@@ -35,8 +34,49 @@ public class Solucao {
 			Set<DadosExemplar> exemplares,
 			Set<DadosUsuario> usuarios, Set<DadosEmprestimo> emprestimos,
 			Set<DadosDevolucao> devolucoes, LocalDate dataParaSerConsideradaNaExpiracao) {
-		
-		return Set.of();
+
+		Set<EmprestimoConcedido> emprestimoConcedidos = new HashSet<>();
+
+		for (DadosEmprestimo emprestimo : emprestimos) {
+			DadosExemplar dadosExemplar = obterExemplar(exemplares, emprestimo.idLivro);
+			LocalDate tempoEmprestimo = LocalDate.now().plusDays(emprestimo.tempo);
+
+			// Restrição 6 - Só pesquisadores podem pedir empréstimos de exemplares restritos
+			if (emprestimo.tipoExemplar == TipoExemplar.RESTRITO) {
+				DadosUsuario dadosUsuario = obterUsuario(usuarios, emprestimo.idUsuario);
+
+				if (dadosUsuario.padrao == TipoUsuario.PADRAO) {
+					continue;
+				}
+			}
+
+			// Restrição 2 - Todo pedido de empréstimo tem o limite de 60 dias a partir do momento do pedido
+			if (emprestimo.tempo > 60) {
+				continue;
+			}
+
+			emprestimoConcedidos.add(
+							new EmprestimoConcedido(
+											emprestimo.idUsuario,
+											dadosExemplar.idExemplar,
+											tempoEmprestimo
+											)
+			);
+		}
+
+		return emprestimoConcedidos;
+	}
+
+	private static DadosExemplar obterExemplar(Set<DadosExemplar> exemplares, int idLivro) {
+		return exemplares.stream()
+						.filter(e -> e.idLivro == idLivro)
+						.findFirst().get();
+	}
+
+	private static DadosUsuario obterUsuario(Set<DadosUsuario> dadosUsuarios, int idUsuario) {
+		return dadosUsuarios.stream()
+						.filter(e -> e.idUsuario == idUsuario)
+						.findFirst().get();
 	}
 
 }

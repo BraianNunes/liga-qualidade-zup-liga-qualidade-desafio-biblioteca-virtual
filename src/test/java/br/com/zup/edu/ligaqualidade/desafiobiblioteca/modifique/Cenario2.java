@@ -1,24 +1,19 @@
 package br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique;
 
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosDevolucao;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.DadosEmprestimo;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.EmprestimoConcedido;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosLivro;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.TipoUsuario;
 
 public class Cenario2 {
 
@@ -91,17 +86,17 @@ public class Cenario2 {
 		Set<DadosUsuario> usuarios = Set.of(usuario2);
 
 		DadosEmprestimo pedidoEmprestimo1 = new DadosEmprestimo(idLivro1,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 1);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 1);
 		DadosEmprestimo pedidoEmprestimo2 = new DadosEmprestimo(idLivro2,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 2);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 2);
 		DadosEmprestimo pedidoEmprestimo3 = new DadosEmprestimo(idLivro3,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 3);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 3);
 		DadosEmprestimo pedidoEmprestimo4 = new DadosEmprestimo(idLivro4,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 4);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 4);
 		DadosEmprestimo pedidoEmprestimo5 = new DadosEmprestimo(idLivro5,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 5);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 5);
 		DadosEmprestimo pedidoEmprestimo6 = new DadosEmprestimo(idLivro6,
-				usuario2.idUsuario, 60, TipoExemplar.LIVRE, 6);
+				usuario2.idUsuario, 60, TipoExemplar.RESTRITO, 6);
 
 		Set<DadosEmprestimo> emprestimos = Set.of(pedidoEmprestimo1,
 				pedidoEmprestimo2, pedidoEmprestimo3, pedidoEmprestimo4,
@@ -123,17 +118,17 @@ public class Cenario2 {
 				.noneMatch(r -> r.getMomentoDevolucao().isPresent()));
 		Assertions.assertEquals(6, resultados.size());
 
-		List<Integer> idsExemplaresRetornados = resultados.stream()
-				.map(r -> r.idExemplar).collect(Collectors.toList());
-		List<Integer> idsExemplaresEsperados = exemplares.stream()
-				.map(e -> e.idExemplar).collect(Collectors.toList());
+		Set<Integer> idsExemplaresRetornados = resultados.stream()
+				.map(r -> r.idExemplar).collect(Collectors.toSet());
+		Set<Integer> idsExemplaresEsperados = exemplares.stream()
+				.map(e -> e.idExemplar).collect(Collectors.toSet());
 		Assertions.assertEquals(idsExemplaresEsperados,
 				idsExemplaresRetornados);
 
-		List<Integer> idsUsuariosRetornados = resultados.stream()
-				.map(r -> r.idUsuario).collect(Collectors.toList());
-		List<Integer> idsUsuariosEsperados = usuarios.stream()
-				.map(u -> u.idUsuario).collect(Collectors.toList());
+		Set<Integer> idsUsuariosRetornados = resultados.stream()
+				.map(r -> r.idUsuario).collect(Collectors.toSet());
+		Set<Integer> idsUsuariosEsperados = usuarios.stream()
+				.map(u -> u.idUsuario).collect(Collectors.toSet());
 		Assertions.assertEquals(idsUsuariosEsperados, idsUsuariosRetornados);
 
 		List<LocalDate> datasPrevistasDevolucaoRetornadas = resultados.stream()

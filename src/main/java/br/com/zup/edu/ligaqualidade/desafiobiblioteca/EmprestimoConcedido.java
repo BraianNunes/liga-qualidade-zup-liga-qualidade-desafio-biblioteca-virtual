@@ -1,11 +1,11 @@
 package br.com.zup.edu.ligaqualidade.desafiobiblioteca;
 
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
+import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
-
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
 
 public class EmprestimoConcedido {
 
@@ -18,23 +18,23 @@ public class EmprestimoConcedido {
 	private Instant momentoDevolucao;
 
 	/**
-	 * 
+	 *
 	 * @param idUsuario id referente ao {@link DadosUsuario}
 	 * @param idExemplar id referente ao {@link DadosExemplar}
 	 * @param dataPrevistaDevolucao data prevista para devolução em função do número de dias
 	 */
-	public EmprestimoConcedido(int idUsuario,int idExemplar ,LocalDate dataPrevistaDevolucao) {
+	public EmprestimoConcedido(int idUsuario, int idExemplar, LocalDate dataPrevistaDevolucao) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idExemplar = idExemplar;
 		this.dataPrevistaDevolucao = dataPrevistaDevolucao;
 	}
-	
+
 	public void registraDevolucao() {
 		this.momentoDevolucao = Instant.now();
 	}
-	
-	
+
+
 	public Optional<Instant> getMomentoDevolucao(){
 		return Optional.ofNullable(this.momentoDevolucao);
 	}
@@ -70,8 +70,8 @@ public class EmprestimoConcedido {
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 
 }
